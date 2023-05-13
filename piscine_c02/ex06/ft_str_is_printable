@@ -1,0 +1,64 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    ft_str_is_printable                                :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: tkasbari <tkasbari@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/26 12:18:15 by tkasbari          #+#    #+#              #
+#    Updated: 2023/04/26 12:30:26 by tkasbari         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+#include <stdio.h>
+#include <string.h>
+
+int ft_str_is_printable(char *str)
+{
+	int i;
+	int is_printable;
+	char c;
+
+	i = 0;
+	is_printable = 1;
+	while (str[i] != '\0' && is_printable)
+		{
+			char c = str[i];
+			if (c >= 32 && c <= 126)
+				i++;
+			else
+				is_printable = 0;
+		}
+	return is_printable;
+}
+
+int	main(void)
+{
+	char *my_str1;
+	char *my_str2;
+	char *my_str3;
+	char *my_str4;
+	char *my_str5;
+	char *my_str6;
+
+	my_str1 = "abcdefghijklmnopqrst";
+	my_str2 = "sdf153t";
+	my_str3 = "-+34dfg";
+	my_str4 = "GFDH";
+	my_str5 = "FJVB1D";
+	my_str6 = "ASDhjghDs";
+
+	printf("my_str1: %s\n", my_str1);
+	printf("is_printable: %d\n", ft_str_is_printable(my_str1));
+	printf("my_str2: %s\n", my_str2);
+	printf("is_printable: %d\n", ft_str_is_printable(my_str2));
+	printf("my_str3: %s\n", my_str3);
+	printf("is_printable: %d\n", ft_str_is_printable(my_str3));
+	printf("my_str4: %s\n", my_str4);
+	printf("is_printable: %d\n", ft_str_is_printable(my_str4));
+	printf("my_str5: %s\n", my_str5);
+	printf("is_printable: %d\n", ft_str_is_printable(my_str5));
+	printf("my_str6: %s\n", my_str6);
+	printf("is_printable: %d\n", ft_str_is_printable(my_str6));
+}
+

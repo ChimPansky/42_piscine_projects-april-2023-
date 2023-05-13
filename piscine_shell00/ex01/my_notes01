@@ -1,0 +1,38 @@
+ls means list directory contents
+ls -l  means use a long listing format
+
+it will print out something like this:
+
+-r--r-xr-x 1 tkasbari 2023_vienna    40 Jun  1  2023 testShell00
+
+1st column: file type and permissions; file types:
+- regular file
+d directory
+l symbolic link
+c character device
+b block device
+s socket
+p named pipe
+
+permissions for owner, group and other users (each 3 characters - 9 in total)
+r read permission
+w write permission
+x execute permission
+- permission not granted.
+use chmod XXX <filename> to set permissions (X..0-7)
+
+2nd column: number of hard links to the file or directory
+
+3rd column: owner of the file or directory
+
+4th column: group that owns file or directory
+
+5th column: file size in bytes
+
+6th column: date and time of last modification date
+use touch -t [[CC]YY]MMDDhhmm[.SS] to set timestamp where
+CC..first 2 digits of year
+YY.. last 2 digits of year
+...
+
+7th column: name of file or directory

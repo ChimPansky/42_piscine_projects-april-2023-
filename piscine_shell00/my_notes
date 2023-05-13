@@ -1,0 +1,45 @@
+ls means list directory contents
+ls -l means use a long listing format
+
+it will pront out something like this:
+
+-rw-r--r-- 1 tkasbari 2023_vienna   935 Apr 19 14:58 my_notes01
+
+1st column:
+- regular file
+d directory
+l symbolic link
+c character device
+b block device
+s socket
+p named pipe
+
+permissions for owner, group and other users (each 3 characters - 9 in total)
+r read permission
+w write permission
+x execute permission
+- permission not granted
+use chmod XXX <filename> to set permissions (X..0-7)
+
+2nd column: number of hard links to the file
+to create a hard link between to files: ln file1 file2 (ln -s for soft link)
+
+3rd column: owner of the file or directory
+
+4th column: group of the file or directory
+
+5th column: file size in bytes
+to set a file size: truncate -s 40 testfile
+
+6th column: date and time of last modification
+use touch -t [[CC]YY]MMDDhhmm[.SS] to set timestamp where 
+CC..first 2 digits of year
+YY..last 2 digits of year
+if date of a file is in the future or >6 months in the past, only the year will be shown
+
+7th column: name of file or directory
+
+
+ex09:
+file -C -m ft_magic
+file -m ft_magic.mgc *
