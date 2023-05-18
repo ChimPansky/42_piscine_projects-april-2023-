@@ -16,8 +16,7 @@ void	print_array(int *tab, int size)
 	int i;
 
 	i = 0;
-
-	while (i <= size -1)
+	while (i < size)
 	{
 		printf("%d ", tab[i]);
 		i++;
