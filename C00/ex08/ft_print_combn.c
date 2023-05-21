@@ -34,7 +34,6 @@ void	ft_get_next_element(int n, int index, int *arr_digits)
 	}
 }
 
-
 void	ft_print_combn(int n)
 {
 	int	digits[10];

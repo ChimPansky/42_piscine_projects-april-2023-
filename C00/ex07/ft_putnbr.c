@@ -25,7 +25,7 @@ void	ft_putnbr(int nb)
 		ft_putchar('0' + nb);
 	}
 }
-
+/*
 int	main(void)
 {
 	ft_putnbr(203);
@@ -40,3 +40,4 @@ int	main(void)
 	ft_putchar('\n');
 	return (0);
 }
+*/

@@ -6,7 +6,7 @@ void	ft_ultimate_div_mod(int *a, int *b)
 	*a = *a / *b;
 	*b = tmp % *b;
 }
-
+/*
 #include <stdio.h>
 int	main(void)
 {
@@ -22,3 +22,4 @@ int	main(void)
 	printf("Values of x, y after ft_ultimate_div_mod(&x, &y): %d, %d\n", x, y);
 	return (0);
 }
+*/

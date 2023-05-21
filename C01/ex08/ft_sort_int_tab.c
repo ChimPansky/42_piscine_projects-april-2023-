@@ -1,5 +1,28 @@
-#include <stdio.h>
 
+void	ft_sort_int_tab(int *tab, int size)
+{
+	int i;
+	int j;
+	int	curr;
+
+	i = 1;
+
+	while (i < size)
+	{
+		curr = tab[i];
+		j = i - 1;
+		while (j >= 0 && curr < tab[j])
+		{
+			tab[j+1] = tab[j];
+			j--;
+		}
+		tab[j+1] = curr;
+		i++;
+	}
+}
+
+/*
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 int	*ft_create_random_int_tab(int size, int min, int max)
@@ -277,3 +300,4 @@ int	main(int argc, char *argv[])
 	}
 	return (0);
 }
+*/
