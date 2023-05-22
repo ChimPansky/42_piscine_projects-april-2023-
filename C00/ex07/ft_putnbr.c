@@ -14,7 +14,7 @@ ft_putuint(unsigned int nb)
 
 // dont use random number: min int is sys dependant
 // either use INT_MIN from limits.h
-// or tipe conversion as below
+// or type conversion as below
 void	ft_putnbr(int nb)
 {
 	if (nb < 0)
