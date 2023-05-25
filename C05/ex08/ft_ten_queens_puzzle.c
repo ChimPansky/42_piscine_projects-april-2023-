@@ -26,7 +26,6 @@ int	check_horizon(t_queen *queens, t_queen queen, int dimension)
 	return (1);
 }
 
-
 int	check_diag(t_queen *queens, t_queen queen, int dimension)
 {
 	int	i;
@@ -54,7 +53,6 @@ int	check_diag(t_queen *queens, t_queen queen, int dimension)
 	}
 	return (1);
 }
-*/
 
 int	ft_check_board(t_queen *queens, int dimension)
 {
@@ -80,7 +78,7 @@ void	ft_set_queens(t_queen *queens, int dimension)
 	queen->x = p_x;
 	queen->y = p_y;
 }
-*/
+
 void	ft_print_board(t_queen *queens, int dimension)
 {
 	int	i;
@@ -113,6 +111,7 @@ void	ft_print_queens(t_queen *queens, int dimension)
 		ft_putchar(queens[i++].y - '0');
 	ft_putchar('\n');
 }
+
 #include <stdio.h>
 int	ft_my_ten_queens(int dimension)
 {
@@ -120,7 +119,6 @@ int	ft_my_ten_queens(int dimension)
 	int	i;
 	
 	i = 0;
-	
 	while (i < dimension)
 	{
 		queens[i].x = i;
