@@ -8,7 +8,7 @@ extern "C" {
 
 
 // TEST(test_group, test_case)
-
+// todo: add test cases
 TEST(ft_ft, test) {
     int a = 0;
     ft_ft(&a);
