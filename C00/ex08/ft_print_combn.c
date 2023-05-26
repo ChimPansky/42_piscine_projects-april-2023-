@@ -1,4 +1,5 @@
 #include <unistd.h>
+
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
@@ -17,7 +18,7 @@ void	ft_putlong(long nb)
 		ft_putchar('0' + nb % 10);
 	}
 	else
-		ft_putchar('0' + nb % 10);	
+		ft_putchar('0' + nb % 10);
 }
 
 void	ft_putnbr(int nb)
@@ -25,40 +26,29 @@ void	ft_putnbr(int nb)
 	ft_putlong((long)nb);
 }
 
-// wanna suggest u to find nice recursive solution for this:
-// on each iteration u know ur current number and how many left
-// u start like this for 3-digit nums: print_next_digit(0, 3);
-// from inside loop 0 to 9, and call print_next_digit(i + 1, 2);
-// loop i + 1 to 9 and call (i + 1, 1) and so on
-// challenges are: stop conditions, commas, dealing with git
-// try to do this in the branch i created
-//------------------------------------------
-// Ok, here i go :)
 
-void	ft_print_element(int n, int *arr_digits)
+void	ft_print_element(int n, char *arr_digits)
 {
 	int	i;
 
 	i = 0;
 	while (i < n)
-	{	
-		ft_putchar('0' + arr_digits[i]);
+	{
+		write(1, arr_digits + i, 1);
 		i++;
 	}
-	if (arr_digits[0] < 10 - n)
+	if (arr_digits[0] <= '9' - n)
 		write(1, ", ", 2);
 }
 
-void	ft_get_next_element(int n, int index, int *arr_digits)
+void	ft_get_next_element(int n, int index, char *arr_digits)
 {
 	if (index >= 0)
 	{
-		if (arr_digits[index] < 10 - n + index)
+		if (arr_digits[index] <= '9' - (n - index))
 			arr_digits[index]++;
 		else
 		{
-			if(index > 0 && (arr_digits[index - 1] + 2) < 10)
-				arr_digits[index] = arr_digits[index - 1] + 2;
 			ft_get_next_element(n, index - 1, arr_digits);
 			arr_digits[index] = arr_digits[index - 1] + 1;
 		}
@@ -67,37 +57,33 @@ void	ft_get_next_element(int n, int index, int *arr_digits)
 
 void	ft_print_combn(int n)
 {
-	int	digits[10];
+	char	digits[10];
 	int	i;
-	int	print_next;
-	
-	if (n >= 1 && n <= 9)
+
+	if (n < 1 && n > 10)
+		return;
+	i = 0;
+	while (i < n)
 	{
-		i = 0;
-		print_next = 1;
-		while (i < n)
-		{
-			digits[i] = i;
-			i++;
-		}
+		digits[i] = '0' + i - (i == n - 1);
+		i++;
+	}
+	while (1)
+	{
+		ft_get_next_element(n, n-1, digits);
 		ft_print_element(n, digits);
-		while (print_next)
-		{
-			ft_get_next_element(n, n-1, digits);
-			if (digits[0] == 10 - n)
-				print_next = 0;
-			ft_print_element(n, digits);
-		}
+		if (digits[0] == '9' - (n - 1))
+			break;
 	}
 }
 
 // this doesnt work properly - better use recursive version above...
 void	ft_print_combn_iterative(int n)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	digits[10];
+	int		i;
+	int		j;
+	int		k;
+	char	digits[10];
 
 	i = 0;
 	j = 0;
@@ -108,7 +94,7 @@ void	ft_print_combn_iterative(int n)
 		k = 0;
 		while (j < n)
 		{
-			digits[j] = i + j + k;
+			digits[j] = i + j + k + '0';
 			if (j == n - 1)
 			{
 				ft_print_element(n, digits);
@@ -134,7 +120,7 @@ void	ft_print_combn_bruteforce(int n)
 	int d;
 	int tmp;
 	int max;
-	
+
 	max = 0;
 	tmp = 0;
 	while (tmp < n)
@@ -163,7 +149,7 @@ void	ft_print_combn_bruteforce(int n)
 		current_num++;
 	}
 }
-/*
+
 #include <stdio.h>
 #include <stdlib.h>
 int main(int argc, char *argv[])
@@ -177,4 +163,3 @@ int main(int argc, char *argv[])
 		printf("Pls gief Number (1-9).\n");
 	return (0);
 }
-*/
