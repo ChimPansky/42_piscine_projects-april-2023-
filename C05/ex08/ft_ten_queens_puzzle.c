@@ -149,11 +149,11 @@ int	ft_n_queens(int dimension)
 		}
 		solution_count += ft_set_queens(queens, dimension, 0);
 		ft_print_queens(queens, dimension);
-		ft_print_board(queens, dimension);
+		//ft_print_board(queens, dimension);
 		while (ft_set_queens(queens, dimension, dimension - 1))
 		{	
 			ft_print_queens(queens, dimension);
-			ft_print_board(queens, dimension);
+			//ft_print_board(queens, dimension);
 			solution_count++; 
 		}
 	}
