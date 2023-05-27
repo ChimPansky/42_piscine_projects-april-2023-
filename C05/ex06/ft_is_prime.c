@@ -5,7 +5,7 @@ int	ft_is_prime(int nb)
 	i = 5;
 	if (nb <= 1)
 		return (0);
-	if (nb == 3 || nb == 5 || nb == 7 || nb == 11 || nb == 13)
+	if (nb == 2 || nb == 3 || nb == 5 || nb == 7 || nb == 11 || nb == 13)
 		return ( 1);
 	if (nb % 2 == 0 || nb % 3 == 0 || nb % 4 == 0)
 		return (0);
