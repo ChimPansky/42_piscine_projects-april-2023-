@@ -6,130 +6,91 @@ typedef	struct	s_queen
 	int	y;
 }				t_queen;
 
-void	ft_putchar(char c);
-void	ft_print_board(t_queen *queens, int dimension);
-//int		check_horizon(t_queen *queens, t_queen queen, int dimension);
-//int		check_pos_diag(t_queen *queens, t_queen queen, int dimension);
-//int		check_neg_diag(t_queen *queens, t_queen queen, int dimension);
-int		ft_check_board(t_queen *queens, int dimension);
+void	toggle_position(int dimension, int p_x, int p_y);
 int		ft_set_queens(t_queen *queens, int dimension, int p_x);
-void	ft_print_board(t_queen *queens, int dimension);
 void	ft_print_queens(t_queen *queens, int dimension);
 int		ft_n_queens(int dimension);
 int		ft_ten_queens_puzzle(void);
+//void	ft_print_board(t_queen *queens, int dimension);
 
-void	ft_putchar(char c)
+int	horizontals[20] = {0}; // N horizontals (3 < N <= 20)
+int	pos_diag[39] = {0}; // (N * 2) - 1 pos diagonals (3 < N <= 20)
+int	neg_diag[39] = {0}; // (N * 2) - 1 pos diagonals (3 < N <= 20)
+
+void	toggle_position(int dimension, int p_x, int p_y)
 {
-	write(1, &c, 1);
-}
-/*
-int	check_horizon(t_queen *queens, t_queen queen, int dimension)
-{
-	int	i;
-	
-	i = 0;
-	while (i < dimension)
-	{
-		if (queens[i].y >= 0 && queens[i].x != queen.x)
-		{
-			if (queens[i].y == queen.y ||
-				queens[i].x + queens[i].y == queen.x + queen.y ||
-				queens[i].y - queens[i].x == queen.y - queen.x)
-				return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-*/
-int	ft_check_board(t_queen *queens, int dimension)
-{
-	int	i;
-	int	j;
-	
-	i = 0;
-	j = 0;
-	while (i < dimension)
-	{
-		if (queens[i].y >= 0)
-		{
-			j = 0;
-			while (j < dimension && queens[j].y >= 0 && i != j)
-			{
-				if (queens[i].y == queens[j].y ||
-					queens[i].x + queens[i].y == queens[j].x + queens[j].y ||
-					queens[i].y - queens[i].x == queens[j].y - queens[j].x)
-					return (0);
-				j++;
-			}			
-		}
-		i++;
-	}
-	return (1);
+	horizontals[p_y] = ! horizontals[p_y];
+	pos_diag[p_x + p_y] = !pos_diag[p_x + p_y];
+	neg_diag[p_y - p_x + dimension - 1] = !neg_diag[p_y - p_x + dimension - 1];
 }
 
 int	ft_set_queens(t_queen *queens, int dimension, int p_x)
 {
-	if (queens[p_x].y == dimension - 1)
+	int	next_y;
+
+	if (p_x < 0)
+		return (0);
+	next_y = queens[p_x].y;
+	if (queens[p_x].y > -1)
 	{
-		if (p_x > 0)
+		toggle_position(dimension, p_x, queens[p_x].y);
+		queens[p_x].y = -1;
+	}
+	while (++next_y < dimension && queens[p_x].y < 0)
+	{
+		if (!horizontals[next_y] && !pos_diag[p_x + next_y] && !neg_diag[next_y - p_x + dimension - 1])
 		{
-			queens[p_x].y = -1;
-			return (ft_set_queens(queens, dimension, p_x - 1));
+			toggle_position(dimension, p_x, next_y);
+			queens[p_x].y = next_y;
 		}
 	}
+	if (queens[p_x].y < 0)
+		return (ft_set_queens(queens, dimension, p_x - 1));
+	else if (p_x < dimension - 1)
+		return (ft_set_queens(queens, dimension, p_x + 1));
 	else
-	{
-		queens[p_x].y++;
-		if (!ft_check_board(queens, dimension))
-			return (ft_set_queens(queens, dimension, p_x));
-		else if (p_x < dimension - 1)
-			return (ft_set_queens(queens, dimension, p_x + 1));
-	}
-	if (ft_check_board(queens, dimension) && p_x == dimension - 1)
 		return (1);
-	else
-		return (0);
 }
 
+/* use this for debugging
 void	ft_print_board(t_queen *queens, int dimension)
 {
 	int	i;
 	int	j;
-	
-	i = 0;
-	j = 0;
-	while (i < dimension)
+
+	i = -1;
+	while (++i < dimension)
 	{
-		j = 0;
-		while (j < dimension)
+		j = -1;
+		while (++j < dimension)
 		{
 			if (queens[j].y == i)
 				ft_putchar('Q');
 			else
 				ft_putchar('-');
 			ft_putchar(' ');
-			j++;
 		}
-		i++;
 		ft_putchar('\n');
 	}
 		ft_putchar('\n');
 }
+*/
 
 void	ft_print_queens(t_queen *queens, int dimension)
 {
 	int	i;
-	
+	char c;
+
 	i = -1;
 	while (++i < dimension)
 	{
 		if (queens[i].y > 9)
-			ft_putchar('A' - 10 + queens[i].y);
+			c = 'A' - 10 + queens[i].y;
 		else
-			ft_putchar('0' + queens[i].y);
+			c = '0' + queens[i].y;
+		write(1, &c, 1);
 	}
-	ft_putchar('\n');
+	write(1, "\n", 1);
 }
 
 int	ft_n_queens(int dimension)
@@ -149,15 +110,13 @@ int	ft_n_queens(int dimension)
 		}
 		solution_count += ft_set_queens(queens, dimension, 0);
 		ft_print_queens(queens, dimension);
-		//ft_print_board(queens, dimension);
 		while (ft_set_queens(queens, dimension, dimension - 1))
-		{	
+		{
 			ft_print_queens(queens, dimension);
-			//ft_print_board(queens, dimension);
-			solution_count++; 
+			solution_count++;
 		}
 	}
-	return (solution_count);	
+	return (solution_count);
 }
 
 int	ft_ten_queens_puzzle(void)
@@ -175,7 +134,6 @@ int main(int argc, char *argv[])
 		nb = atoi(argv[1]);
 		if (nb >= 0 && nb < 20)
 			printf("Number of solutions for %d Queens: %d\n", nb, ft_n_queens(nb));
-		
 	}
 	else
 		printf("Number of solutions ft_ten_queens_puzzle(): %d\n", ft_ten_queens_puzzle());
