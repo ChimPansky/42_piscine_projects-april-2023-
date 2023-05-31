@@ -40,7 +40,7 @@ int	ft_base_valid(char *base)
 	return (len);
 }
 
-void	ft_putnbr_base(int nbr, char *base)
+void	ft_save_nbr_base(char *target, int nbr, char *base)
 {
 	long	nr;
 	int	baselen;
@@ -51,11 +51,11 @@ void	ft_putnbr_base(int nbr, char *base)
 	{
 		if (nr < 0)
 		{
-			write(1, "-", 1);
+			target[index++] = '-';
 			nr *= -1;
 		}
 		if (nr >= baselen)
-		{
+		{//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			ft_putnbr_base(nr / baselen, base);
 			ft_putnbr_base(nr % baselen, base);
 		}
